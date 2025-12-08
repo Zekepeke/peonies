@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Natural Peony Canvas</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #02160b;
+    }
+    #c {
+      display: block;
+    }
+    .overlay {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.55);
+      color: #f9fafb;
+      font-size: 13px;
+      letter-spacing: .02em;
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body>
+<div class="overlay">
+  Click to grow new peonies 
+</div>
+<canvas id="c"></canvas>
+
+<script>
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  drawScene();
+}
+window.addEventListener("resize", resize);
+
+// helpers
+const rand = (a, b) => Math.random() * (b - a) + a;
+const randInt = (a, b) => Math.floor(rand(a, b + 1));
+
+// draw a ruffly petal (one petal, pointed up the -Y axis)
+function drawRuffledPetal(radius, width) {
+  const segments = 4;   // more segments -> more ruffle
+  const topY = -radius;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+
+  // right edge going up
+  let lastX = 0, lastY = 0;
+  for (let i = 1; i <= segments; i++) {
+    const t = i / segments;
+    const y = topY * t;
+    const controlY = lastY + (y - lastY) * 0.5;
+    const x = width * (0.2 + 0.8 * t) + rand(-width * 0.15, width * 0.15);
+    const controlX = (lastX + x) / 2 + rand(-width * 0.2, width * 0.2);
+    ctx.quadraticCurveTo(controlX, controlY, x, y);
+    lastX = x; lastY = y;
+  }
+
+  // left edge coming back down, mirrored
+  for (let i = segments; i >= 1; i--) {
+    const t = i / segments;
+    const y = topY * t;
+    const controlY = lastY + (y - lastY) * 0.5;
+    const x = -width * (0.2 + 0.8 * t) + rand(-width * 0.15, width * 0.15);
+    const controlX = (lastX + x) / 2 + rand(-width * 0.2, width * 0.2);
+    ctx.quadraticCurveTo(controlX, controlY, x, y);
+    lastX = x; lastY = y;
+  }
+
+  ctx.closePath();
+}
+
+// draw one peony bloom
+function drawPeony(cx, cy, baseRadius) {
+  ctx.save();
+  ctx.translate(cx, cy);
+
+  // base hue: soft pink
+  const baseHue = 340 + rand(-5, 5);
+
+  const layerCount = 6; // more layers = fuller flower
+  for (let layer = 0; layer < layerCount; layer++) {
+    const t = layer / (layerCount - 1 || 1);
+    const radius = baseRadius * (0.35 + t * 0.8);
+    const petals = randInt(18 + layer * 4, 28 + layer * 6);
+
+    for (let i = 0; i < petals; i++) {
+      const angle = (Math.PI * 2 * i) / petals
+                  + rand(-0.25, 0.25); // break the perfect circle
+      const scaleJitter = rand(0.85, 1.15);
+      const petalRadius = radius * scaleJitter;
+      const petalWidth  = petalRadius * rand(0.35, 0.6);
+
+      ctx.save();
+      ctx.rotate(angle);
+      ctx.translate(rand(-3, 3), rand(-3, 3)); // slight offset
+
+      drawRuffledPetal(petalRadius, petalWidth);
+
+      // inner layers slightly darker, outer almost white
+      const lightness = 88 - t * 22 + rand(-3, 3);
+      const saturation = 70 + rand(-8, 4);
+      ctx.fillStyle = `hsl(${baseHue}, ${saturation}%, ${lightness}%)`;
+      ctx.globalAlpha = 0.55 + (1 - t) * 0.4;
+      ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  // subtle center
+  ctx.globalAlpha = 0.95;
+  ctx.beginPath();
+  ctx.arc(0, 0, baseRadius * 0.18, 0, Math.PI * 2);
+  ctx.fillStyle = `hsl(${baseHue + rand(-10, 5)}, 80%, 60%)`;
+  ctx.fill();
+
+  // little yellow-ish stamens
+  const dots = 35;
+  for (let i = 0; i < dots; i++) {
+    const r = baseRadius * rand(0.02, 0.14);
+    const a = rand(0, Math.PI * 2);
+    ctx.beginPath();
+    ctx.arc(Math.cos(a) * r, Math.sin(a) * r, baseRadius * 0.02, 0, Math.PI * 2);
+    ctx.fillStyle = `hsl(${baseHue - 40 + rand(-5, 5)}, 90%, 70%)`;
+    ctx.fill();
+  }
+
+  ctx.restore();
+}
+
+// very simple leafy background
+function drawLeaves() {
+  const w = canvas.width;
+  const h = canvas.height;
+
+  // dark green base
+  ctx.fillStyle = "#02160b";
+  ctx.fillRect(0, 0, w, h);
+
+  const leafCount = Math.round((w * h) / 40000);
+  for (let i = 0; i < leafCount; i++) {
+    const x = rand(-50, w + 50);
+    const y = rand(h * 0.25, h + 60);
+    const len = rand(80, 160);
+    const width = rand(28, 45);
+    const angle = rand(-Math.PI / 3, Math.PI / 3);
+
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(angle);
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.quadraticCurveTo(len * 0.4, -width, len, 0);
+    ctx.quadraticCurveTo(len * 0.4, width, 0, 0);
+    ctx.closePath();
+
+    const grad = ctx.createLinearGradient(0, -width, len, width);
+    grad.addColorStop(0, "#064e3b");
+    grad.addColorStop(0.5, "#047857");
+    grad.addColorStop(1, "#065f46");
+    ctx.fillStyle = grad;
+    ctx.globalAlpha = 0.8;
+    ctx.fill();
+
+    ctx.restore();
+  }
+}
+
+function drawScene() {
+  drawLeaves();
+
+  const w = canvas.width;
+  const h = canvas.height;
+
+  const count = 2 + (w > 900 ? 1 : 0); // 2–3 flowers
+  for (let i = 0; i < count; i++) {
+    const radius = rand(90, 140); // big fluffy blooms
+    const x = w * (0.25 + i * 0.25) + rand(-40, 40);
+    const y = h * 0.45 + rand(-20, 40);
+    drawPeony(x, y, radius);
+  }
+}
+
+canvas.addEventListener("click", drawScene);
+
+resize(); // initial
+</script>
+</body>
+</html>
