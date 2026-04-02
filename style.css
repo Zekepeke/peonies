@@ -1245,4 +1245,98 @@ body {
   animation-play-state: paused !important;
 }
 
+/* Responsive Design for Mobile Devices */
+
+/* Large tablets and small desktops */
+@media screen and (max-width: 1024px) {
+  .flowers {
+    transform: scale(0.8);
+  }
+}
+
+/* Tablets (iPad) */
+@media screen and (max-width: 768px) {
+  .flowers {
+    transform: scale(0.65);
+  }
+  
+  .curved-m {
+    font-size: 32px !important;
+    padding: 0 10px !important;
+  }
+}
+
+/* Large phones (iPhone Plus, Pro Max) */
+@media screen and (max-width: 480px) {
+  body {
+    padding: 20px 0px;
+    min-height: 100vh;
+    align-items: center;
+  }
+  
+  .flowers {
+    transform: scale(0.5);
+    margin-bottom: -10vmin;
+  }
+  
+  .curved-m {
+    font-size: 24px !important;
+    padding: 0 8px !important;
+  }
+  
+  .flower__leafs {
+    width: 18vmin;
+    height: 18vmin;
+  }
+}
+
+/* Small phones (iPhone SE, older iPhones) */
+@media screen and (max-width: 375px) {
+  .flowers {
+    transform: scale(0.42);
+    margin-bottom: -15vmin;
+  }
+  
+  .curved-m {
+    font-size: 20px !important;
+    padding: 0 5px !important;
+  }
+}
+
+/* Very small screens */
+@media screen and (max-width: 320px) {
+  .flowers {
+    transform: scale(0.35);
+    margin-bottom: -20vmin;
+  }
+  
+  .curved-m {
+    font-size: 16px !important;
+  }
+}
+
+/* Landscape mode on mobile */
+@media screen and (max-height: 500px) and (orientation: landscape) {
+  body {
+    padding: 10px 0px;
+  }
+  
+  .flowers {
+    transform: scale(0.4);
+    margin-bottom: -25vmin;
+  }
+  
+  .curved-m {
+    font-size: 18px !important;
+  }
+  
+  .flower__line {
+    height: 35vmin;
+  }
+  
+  .flower__leafs {
+    bottom: calc(35vmin + 1vmin);
+  }
+}
+
 /*# sourceMappingURL=style.css.map */
