@@ -173,16 +173,42 @@ body {
 .flower--3 .flower__line__leaf--4 {
   animation: blooming-leaf-left var(--fl-speed) 1.9s backwards;
 }
-/* ---------- Peony blossom ---------- */
+/* ---------- Rose blossom ---------- */
 
 .flower__leafs {
   position: absolute;
   left: 50%;
-  bottom: calc(55vmin + 1vmin); /* sits at top of stem */
-  width: 20vmin;
-  height: 20vmin;
+  bottom: calc(55vmin + 1vmin);
+  width: 22vmin;
+  height: 22vmin;
   transform: translateX(-50%);
-  animation: blooming-flower 2.4s 2s backwards; /* slower, starts after intro */
+  animation: blooming-flower 2.4s 2s backwards;
+}
+
+.flower__leafs::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2vmin;
+  width: 3vmin;
+  height: 4vmin;
+  background: linear-gradient(135deg, #2d5a2d 0%, #4a7c4a 50%, #2d5a2d 100%);
+  border-radius: 50% 50% 0 0;
+  transform: translateX(-50%) rotate(-30deg);
+  z-index: 0;
+}
+
+.flower__leafs::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -2vmin;
+  width: 3vmin;
+  height: 4vmin;
+  background: linear-gradient(135deg, #2d5a2d 0%, #4a7c4a 50%, #2d5a2d 100%);
+  border-radius: 50% 50% 0 0;
+  transform: translateX(-50%) rotate(30deg);
+  z-index: 0;
 }
 
 /* base petal shape */
@@ -190,45 +216,97 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 6.5vmin;
-  height: 9.5vmin;
-  border-radius: 60% 55% 45% 55% / 65% 60% 40% 55%;
-  background-image:
-    radial-gradient(circle at 30% 25%, #ffeaf5 0%, #fecdd3 38%, transparent 65%),
-    linear-gradient(to top, #f9739b 0%, #fecaca 40%, #fff5f7 100%);
-  box-shadow: inset 0 0.4vmin 0.8vmin rgba(255, 255, 255, 0.75);
-  transform-origin: 50% 90%;
-  opacity: 0.98;
+  width: 7vmin;
+  height: 8vmin;
+  border-radius: 80% 5% 80% 5%;
+  background: 
+    radial-gradient(ellipse at 20% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #ffb3d9 0%, #ff85c0 40%, #ff69b4 60%, #e75b9f 100%);
+  box-shadow: 
+    inset -1vmin 1vmin 2vmin rgba(231, 91, 159, 0.4),
+    inset 0.5vmin -0.5vmin 1vmin rgba(255, 255, 255, 0.3);
+  transform-origin: 50% 100%;
+  opacity: 0.95;
 }
 
-/* inner ring of petals – tighter, slightly smaller */
-.flower__leaf--1  { transform: translate(-50%, -65%) rotate(-40deg)    scale(1.2); }
-.flower__leaf--2  { transform: translate(-50%, -65%) rotate(-70deg)   scale(1.2); }
-.flower__leaf--3  { transform: translate(-50%, -65%) rotate(-120deg)   scale(1.2); }
-.flower__leaf--4  { transform: translate(-50%, -65%) rotate(90deg)   scale(1.2); }
-.flower__leaf--5  { transform: translate(-50%, -65%) rotate(120deg)  scale(1.2); }
-.flower__leaf--6  { transform: translate(-50%, -65%) rotate(150deg)  scale(1.2); }
-.flower__leaf--7  { transform: translate(-50%, -65%) rotate(180deg)  scale(1.2); }
-.flower__leaf--8  { transform: translate(-50%, -65%) rotate(210deg)  scale(1.2); }
+/* Outermost layer - large petals */
+.flower__leaf--1  { 
+  transform: translate(-50%, -50%) rotate(0deg) scale(1.4); 
+  z-index: 1;
+}
+.flower__leaf--2  { 
+  transform: translate(-50%, -50%) rotate(72deg) scale(1.4); 
+  z-index: 1;
+}
+.flower__leaf--3  { 
+  transform: translate(-50%, -50%) rotate(144deg) scale(1.4); 
+  z-index: 1;
+}
+.flower__leaf--4  { 
+  transform: translate(-50%, -50%) rotate(216deg) scale(1.4); 
+  z-index: 1;
+}
+.flower__leaf--5  { 
+  transform: translate(-50%, -50%) rotate(288deg) scale(1.4); 
+  z-index: 1;
+}
 
-/* outer ring of petals – a bit lower + larger to make a bowl */
-.flower__leaf--9  { transform: translate(-50%, -80%) rotate(15deg)   scale(1.2); }
-.flower__leaf--10 { transform: translate(-50%, -80%) rotate(75deg)   scale(1.2); }
-.flower__leaf--11 { transform: translate(-50%, -80%) rotate(135deg)  scale(1.2); }
-.flower__leaf--12 { transform: translate(-50%, -80%) rotate(195deg)  scale(1.2); }
+/* Middle layer - medium petals, offset rotation */
+.flower__leaf--6  { 
+  transform: translate(-50%, -50%) rotate(36deg) scale(1.1); 
+  background: linear-gradient(135deg, #ffc4e1 0%, #ff9ed4 40%, #ff85c0 60%, #f06ba8 100%);
+  z-index: 2;
+}
+.flower__leaf--7  { 
+  transform: translate(-50%, -50%) rotate(108deg) scale(1.1); 
+  background: linear-gradient(135deg, #ffc4e1 0%, #ff9ed4 40%, #ff85c0 60%, #f06ba8 100%);
+  z-index: 2;
+}
+.flower__leaf--8  { 
+  transform: translate(-50%, -50%) rotate(180deg) scale(1.1); 
+  background: linear-gradient(135deg, #ffc4e1 0%, #ff9ed4 40%, #ff85c0 60%, #f06ba8 100%);
+  z-index: 2;
+}
+.flower__leaf--9  { 
+  transform: translate(-50%, -50%) rotate(252deg) scale(1.1); 
+  background: linear-gradient(135deg, #ffc4e1 0%, #ff9ed4 40%, #ff85c0 60%, #f06ba8 100%);
+  z-index: 2;
+}
+.flower__leaf--10 { 
+  transform: translate(-50%, -50%) rotate(324deg) scale(1.1); 
+  background: linear-gradient(135deg, #ffc4e1 0%, #ff9ed4 40%, #ff85c0 60%, #f06ba8 100%);
+  z-index: 2;
+}
 
-/* peony center – smaller, more pink, yellow only in the middle */
+/* Inner layer - tighter, darker spiral petals */
+.flower__leaf--11 { 
+  transform: translate(-50%, -50%) rotate(20deg) scale(0.75); 
+  background: linear-gradient(135deg, #ffaed6 0%, #ff85c0 40%, #e75b9f 70%, #d94d8c 100%);
+  border-radius: 75% 10% 75% 10%;
+  z-index: 3;
+}
+.flower__leaf--12 { 
+  transform: translate(-50%, -50%) rotate(140deg) scale(0.75); 
+  background: linear-gradient(135deg, #ffaed6 0%, #ff85c0 40%, #e75b9f 70%, #d94d8c 100%);
+  border-radius: 75% 10% 75% 10%;
+  z-index: 3;
+}
+
+/* Rose center - tight spiral */
 .flower__white-circle {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 5.5vmin;
-  height: 5.5vmin;
-  transform: translate(-50%, -54%);
+  width: 4vmin;
+  height: 4vmin;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 30%,
-              #ffe4f3 0%, #f472b6 45%, #ec4899 75%);
-  box-shadow: none; /* remove glowing halo */
+  background: 
+    radial-gradient(circle at 35% 35%, #ffd1e8 0%, #ff9ed4 30%, #e75b9f 60%, #c94d85 100%);
+  box-shadow: 
+    inset -0.5vmin 0.5vmin 1vmin rgba(201, 77, 133, 0.6),
+    0 0 1vmin rgba(255, 105, 180, 0.4);
+  z-index: 4;
 }
 
 .flower__white-circle::after {
@@ -236,13 +314,28 @@ body {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 55%;
-  height: 55%;
-  transform: translate(-50%, -50%);
+  width: 50%;
+  height: 50%;
+  transform: translate(-50%, -50%) rotate(45deg);
+  border-radius: 40% 60% 40% 60%;
+  background: 
+    linear-gradient(135deg, #d94d8c 0%, #b84478 50%, #a03d68 100%);
+  box-shadow: inset 0.2vmin -0.2vmin 0.4vmin rgba(0, 0, 0, 0.3);
+  opacity: 0.8;
+  z-index: 5;
+}
+
+.flower__white-circle::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 35%;
+  height: 35%;
+  transform: translate(-50%, -50%) rotate(-30deg);
   border-radius: 50%;
-  background: radial-gradient(circle,
-              #ffecc7 0%, #facc15 40%, transparent 70%);
-  opacity: 0.9;
+  background: radial-gradient(circle, #8a3458 0%, #6b2644 100%);
+  z-index: 6;
 }
 
 
