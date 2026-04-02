@@ -202,7 +202,7 @@ body {
 .flower--1 .flower__image {
   width: 26vmin;
   height: 26vmin;
-  transform: translate(-50%, -32%) rotate(-5deg);
+  transform: translate(-50%, -48%) rotate(-5deg);
 }
 
 .flower--2 .flower__image {
