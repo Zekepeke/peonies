@@ -97,7 +97,7 @@ body {
 
 .flowers {
   position: relative;
-  transform: scale(0.9);
+  transform: scale(0.9) translateX(12vmin);
 }
 
 .flower {
@@ -1250,14 +1250,14 @@ body {
 /* Large tablets and small desktops */
 @media screen and (max-width: 1024px) {
   .flowers {
-    transform: scale(0.8);
+    transform: scale(0.8) translateX(12vmin);
   }
 }
 
 /* Tablets (iPad) */
 @media screen and (max-width: 768px) {
   .flowers {
-    transform: scale(0.65);
+    transform: scale(0.65) translateX(10vmin);
   }
   
   .curved-m {
@@ -1275,7 +1275,7 @@ body {
   }
   
   .flowers {
-    transform: scale(0.5);
+    transform: scale(0.5) translateX(8vmin);
     margin-bottom: -10vmin;
   }
   
@@ -1293,7 +1293,7 @@ body {
 /* Small phones (iPhone SE, older iPhones) */
 @media screen and (max-width: 375px) {
   .flowers {
-    transform: scale(0.42);
+    transform: scale(0.42) translateX(6vmin);
     margin-bottom: -15vmin;
   }
   
@@ -1306,7 +1306,7 @@ body {
 /* Very small screens */
 @media screen and (max-width: 320px) {
   .flowers {
-    transform: scale(0.35);
+    transform: scale(0.35) translateX(5vmin);
     margin-bottom: -20vmin;
   }
   
