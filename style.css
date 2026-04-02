@@ -185,6 +185,38 @@ body {
   animation: blooming-flower 2.4s 2s backwards;
 }
 
+/* Rose image styling */
+.flower__image {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -35%);
+  width: 28vmin;
+  height: 28vmin;
+  object-fit: contain;
+  z-index: 5;
+  filter: drop-shadow(0 0 2vmin rgba(255, 150, 200, 0.3));
+}
+
+/* Individual flower adjustments */
+.flower--1 .flower__image {
+  width: 26vmin;
+  height: 26vmin;
+  transform: translate(-50%, -32%) rotate(-5deg);
+}
+
+.flower--2 .flower__image {
+  width: 28vmin;
+  height: 28vmin;
+  transform: translate(-50%, -35%) rotate(3deg);
+}
+
+.flower--3 .flower__image {
+  width: 25vmin;
+  height: 25vmin;
+  transform: translate(-50%, -30%) rotate(-8deg);
+}
+
 .flower__leafs::before {
   content: "";
   position: absolute;

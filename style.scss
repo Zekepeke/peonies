@@ -161,6 +161,37 @@ body {
     }
   }
 
+  // Rose image styling
+  &__image {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 28vmin;
+    height: 28vmin;
+    object-fit: contain;
+    z-index: 5;
+    filter: drop-shadow(0 0 2vmin rgba(255, 150, 200, 0.3));
+  }
+
+  &--1 .flower__image {
+    width: 26vmin;
+    height: 26vmin;
+    transform: translate(-50%, -50%) rotate(-5deg);
+  }
+
+  &--2 .flower__image {
+    width: 28vmin;
+    height: 28vmin;
+    transform: translate(-50%, -50%) rotate(3deg);
+  }
+
+  &--3 .flower__image {
+    width: 25vmin;
+    height: 25vmin;
+    transform: translate(-50%, -50%) rotate(-8deg);
+  }
+
   &__leaf {
     position: absolute;
     bottom: 0;
